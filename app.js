@@ -1,20 +1,25 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var sassMiddleware = require('node-sass-middleware');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const sassMiddleware = require('node-sass-middleware');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+require('dotenv').config();
+const mysql = require('mysql');
 
+/* Connect to the Database */
+let dbConnection = mysql.createConnection({
+    host: process.env.MYSQL_URL,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DB
+});
+dbConnection.connect(function(err) {
+    if (err) throw err
+    console.log('Successfully connected to database');
+});
 
-
-
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
-var dbConnection = mysql.createConnection({
-    host: 'localhost'
-
-})
 var app = express();
 
 app.use(logger('dev'));
