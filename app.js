@@ -17,7 +17,7 @@ let dbConnection = mysql.createConnection({
 });
 dbConnection.connect(function(err) {
     if (err) throw err
-    console.log('Successfully connected to database');
+    console.log('Successfully connected to database...');
 });
 
 var app = express();
